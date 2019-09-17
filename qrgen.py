@@ -62,6 +62,8 @@ while i < len(payloads):
     payloads[i] = payloads[i].strip()
     i+=1
 i=0
+if not os.path.exists("genqr"):
+os.mkdir("genqr")
 while i < len(payloads):
     img = qrcode.make(payloads[i])
     img.save("genqr/payload-{}.png".format(i))
