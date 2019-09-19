@@ -3,6 +3,7 @@
 import qrcode
 import subprocess
 import sys
+import os
 import argparse
 from PIL import Image
 qr_version="0.1"
@@ -37,38 +38,44 @@ if len(sys.argv) == 1:
     parser.print_help()
     sys.exit(1)
 
-lists = ['words/sqli','words/xss.txt','words/cmdinj','words/formatstr.txt','words/xxe','words/strfuzz','words/ssi','words/lfi']
+lists = ['words/sqli.txt','words/xss.txt','words/cmdinj.txt','words/formatstr.txt','words/xxe.txt','words/strfuzz.txt','words/ssi.txt','words/lfi.txt']
+
 try:
     cmd= subprocess.check_output(['mkdir','genqr'],stderr=subprocess.STDOUT)
     print("Payload path generated..")
 except:
     print("Payload path exist, continuing...")
     pass
+  
 try:
     cmd = subprocess.check_output(['rm', 'genqr/*'],stderr=subprocess.STDOUT)
     print("Clearing QR payloads dir..")
 except:
     print("Path already cleared or deleted..")
     pass
+  
 payloads = []
-if options.list:
+
+if options.list!=None:
     z = options.list
     payloads = open(lists[z]).readlines()
 elif options.wordlist:
     z = options.wordlist
     payloads = open(str(z)).readlines()
-i = 0
-while i < len(payloads):
+    
+for i in range(0, len(payloads)): 
     payloads[i] = payloads[i].strip()
-    i+=1
-i=0
+
 if not os.path.exists("genqr"):
-os.mkdir("genqr")
-while i < len(payloads):
+    os.mkdir("genqr")
+
+for i in range(0, len(payloads)): 
     img = qrcode.make(payloads[i])
     img.save("genqr/payload-{}.png".format(i))
-    i+=1
+    
 print("Generated {} payloads!".format(len(payloads)))
-Image.open("genqr/payload-{}.png".format(i-1)).show()
-print("Opening last generated payload...")
+if(len(payloads)>0):	
+	  Image.open("genqr/payload-{}.png".format(i-1)).show()
+	  print("Opening last generated payload...")
+    
 print("Thanks for using QRGen, made by H0nus..")
