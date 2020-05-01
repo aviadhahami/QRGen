@@ -14,7 +14,7 @@ C8888 8888D 888 88"  C8888 eeee d88 88b 888 88b
  Y888 888P  888 b,    Y888 888P 888   , 888 888
   "88 88"   888 88b,   "88 88"   "YeeP" 888 888
       b
-      8b,    {}'''.format("QRGen ~ v0.1 ~ by h0nus\n")
+      8b,    {}'''.format("QRGen ~ v"+qr_version+" ~ by h0nus\n")
 print(banner)
 #print('Tool to generate Malformed QRCodes for fuzzing QRCode parsers/reader\n')
 parser = argparse.ArgumentParser(description="Tool to generate Malformed QRCodes for fuzzing QRCode parsers/reader",
